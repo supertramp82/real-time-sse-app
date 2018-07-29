@@ -1,18 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
+import { getInitialFlightData } from './DataProvider';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: getInitialFlightData()
+    };
+
+    this.columns = [
+      {
+        Header: 'Origin',
+        accessor: 'origin'
+      },
+      {
+        Header: 'Flight',
+        accessor: 'flight'
+      },
+      {
+        Header: 'Arrival',
+        accessor: 'arrival'
+      },
+      {
+        Header: 'State',
+        accessor: 'state'
+      }
+    ];
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <ReactTable data={this.state.data} columns={this.columns} />
       </div>
     );
   }
